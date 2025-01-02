@@ -5,6 +5,7 @@
     Authors: Luna Nielsen
 */
 module creator.panels.viewport;
+import creator.viewport.common.utils;
 import creator.viewport;
 import creator.widgets;
 import creator.widgets.viewport;
@@ -188,6 +189,9 @@ protected:
             }
             igPopStyleVar();
 
+            igPushStyleColor(ImGuiCol.Button, igGetStyleColorVec4(ImGuiCol.Button).setAlpha(0.5));
+            igPushStyleColor(ImGuiCol.ButtonHovered, igGetStyleColorVec4(ImGuiCol.ButtonHovered).setAlpha(0.5));
+            igPushStyleColor(ImGuiCol.FrameBgActive, igGetStyleColorVec4(ImGuiCol.ButtonActive).setAlpha(0.5));
             igPushStyleVar(ImGuiStyleVar.FrameBorderSize, 0);
                 incBeginViewportToolArea("ToolArea", ImGuiDir.Left);
                     igPushStyleVar_Vec2(ImGuiStyleVar.FramePadding, ImVec2(6, 6));
@@ -204,9 +208,12 @@ protected:
                 incBeginViewportToolArea("ConfirmArea", ImGuiDir.Left, ImGuiDir.Down, false);
                     incViewportDrawConfirmBar();
                 incEndViewportToolArea();
+    
                 if (incEditMode == EditMode.ModelEdit)
                     incViewportTransformHandle();
+                
             igPopStyleVar();
+            igPopStyleColor(3);
 
             lastSize = currSize;
             igEndChild();
